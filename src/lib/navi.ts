@@ -14,6 +14,6 @@ export function getNaviUrl(lat: number, lng: number, name: string, app: NaviApp 
 
 export function getNaviFallbackUrl(lat: number, lng: number, name: string): string {
   const encoded = encodeURIComponent(name);
-  // 카카오맵 웹: 좌표 기반 도착지 정확 세팅
-  return `https://map.kakao.com/link/to/${encoded},${lat},${lng}`;
+  // 네이버지도 웹: /p/directions 경로 + 좌표,이름 형식으로 도착지 세팅
+  return `https://map.naver.com/p/directions/-/${lng},${lat},${encoded}/-/car`;
 }
