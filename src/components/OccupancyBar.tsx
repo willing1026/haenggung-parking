@@ -9,18 +9,21 @@ interface Props {
 
 export function OccupancyBar({ available, total, status }: Props) {
   const occupiedPercent = total > 0 ? ((total - available) / total) * 100 : 100;
+  const config = STATUS_CONFIG[status];
 
   return (
-    <div className="flex items-center gap-2">
-      <div className="h-2 flex-1 rounded-full bg-border overflow-hidden">
+    <div className="flex items-center gap-3">
+      <div className="h-1.5 flex-1 rounded-full bg-border/40 overflow-hidden">
         <div
-          className={`h-full rounded-full transition-all duration-500 ${STATUS_CONFIG[status].barColor}`}
+          className={`h-full rounded-full ${config.barColor} transition-all duration-500`}
           style={{ width: `${occupiedPercent}%` }}
         />
       </div>
-      <span className="text-sm tabular-nums font-medium text-text-primary whitespace-nowrap">
-        <span className="text-lg font-bold">{available}</span>
-        <span className="text-text-secondary">/{total}</span>
+      <span className="text-sm tabular-nums font-medium whitespace-nowrap">
+        <span className={`text-lg font-bold ${available > 0 ? config.badgeText : "text-text-muted"}`}>
+          {available}
+        </span>
+        <span className="text-text-muted text-xs">/{total}</span>
       </span>
     </div>
   );

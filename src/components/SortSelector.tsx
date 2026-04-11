@@ -14,16 +14,16 @@ export function SortSelector() {
   const setSortBy = useParkingStore((s) => s.setSortBy);
 
   return (
-    <div className="flex rounded-lg bg-bg-card p-1 mx-4">
+    <div className="flex rounded-lg bg-bg-card/60 backdrop-blur-sm border border-border/30 p-0.5">
       {OPTIONS.map((opt) => {
         const active = sortBy === opt.value;
         return (
           <button
             key={opt.value}
             onClick={() => setSortBy(opt.value)}
-            className={`flex-1 py-1.5 text-xs font-medium rounded-md transition-all ${
+            className={`px-2.5 py-1 text-xs font-medium rounded-md transition-all duration-200 ${
               active
-                ? "bg-border text-text-primary shadow-sm"
+                ? "bg-blue-500/15 text-blue-400"
                 : "text-text-secondary"
             }`}
           >
