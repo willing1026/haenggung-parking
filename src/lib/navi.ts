@@ -16,7 +16,7 @@ export function getNaviFallbackUrl(lat: number, lng: number, name: string, app: 
   const encoded = encodeURIComponent(name);
 
   if (app === "naver") {
-    return `https://map.naver.com/v5/directions/-/-/-/car?c=${lng},${lat},15,0,0,0,dh&destination=${encoded},${lat},${lng}`;
+    return `https://map.naver.com/v5/directions/-/${lng},${lat},${encoded}/-/car`;
   }
 
   return `https://map.kakao.com/link/to/${encoded},${lat},${lng}`;
