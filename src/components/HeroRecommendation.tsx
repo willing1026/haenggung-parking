@@ -1,9 +1,8 @@
 "use client";
 
-import { Navigation } from "lucide-react";
 import { useParkingStore } from "@/store/parkingStore";
 import { STATUS_CONFIG } from "@/lib/status";
-import { getNaviUrl } from "@/lib/navi";
+import { NaviButton } from "./NaviButton";
 import type { ParkingLot } from "@/types/parking";
 
 function pickRecommendation(lots: ParkingLot[]): ParkingLot | null {
@@ -43,9 +42,6 @@ export function HeroRecommendation() {
   }
 
   const config = STATUS_CONFIG[recommended.status];
-  const naviUrl = recommended.lat && recommended.lng
-    ? getNaviUrl(recommended.lat, recommended.lng, recommended.name)
-    : null;
 
   return (
     <div className={`mx-4 rounded-2xl bg-bg-card border border-border/50 p-5 ${config.cardGlow}`}>
@@ -82,19 +78,8 @@ export function HeroRecommendation() {
       )}
 
       {/* 길찾기 CTA */}
-      {naviUrl && (
-        <a
-          href={naviUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(e) => e.stopPropagation()}
-          className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl
-            bg-blue-500 hover:bg-blue-600 active:bg-blue-700
-            text-white text-sm font-semibold transition-colors"
-        >
-          <Navigation size={16} />
-          길찾기
-        </a>
+      {recommended.lat && recommended.lng && (
+        <NaviButton lat={recommended.lat} lng={recommended.lng} name={recommended.name} variant="primary" />
       )}
     </div>
   );

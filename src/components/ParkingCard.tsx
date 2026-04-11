@@ -1,13 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, Check, Navigation } from "lucide-react";
+import { Copy, Check } from "lucide-react";
 import type { ParkingLot } from "@/types/parking";
 import { useParkingStore } from "@/store/parkingStore";
 import { STATUS_CONFIG } from "@/lib/status";
-import { getNaviUrl } from "@/lib/navi";
 import { OccupancyBar } from "./OccupancyBar";
 import { StatusBadge } from "./StatusBadge";
+import { NaviButton } from "./NaviButton";
 
 interface Props {
   lot: ParkingLot;
@@ -57,18 +57,7 @@ export function ParkingCard({ lot }: Props) {
                 {/* 액션 버튼 */}
                 {lot.lat && lot.lng && (
                   <div className="pt-2">
-                    <a
-                      href={getNaviUrl(lot.lat, lot.lng, lot.name)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="flex items-center justify-center gap-1.5 w-full py-2 rounded-lg
-                        bg-blue-500/15 text-blue-400 text-sm font-medium
-                        hover:bg-blue-500/25 active:bg-blue-500/35 transition-colors"
-                    >
-                      <Navigation size={14} />
-                      길찾기
-                    </a>
+                    <NaviButton lat={lot.lat} lng={lot.lng} name={lot.name} />
                   </div>
                 )}
               </div>
