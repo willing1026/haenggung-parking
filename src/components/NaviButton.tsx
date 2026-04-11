@@ -18,7 +18,7 @@ export function NaviButton({ lat, lng, name, variant = "compact" }: Props) {
       e.preventDefault();
 
       const appUrl = getNaviUrl(lat, lng, name, "naver");
-      const webUrl = getNaviFallbackUrl(lat, lng, name, "naver");
+      const webUrl = getNaviFallbackUrl(lat, lng, name);
 
       // 모바일: 앱 스킴 시도 → 타임아웃 시 웹 폴백
       const start = Date.now();

@@ -12,12 +12,8 @@ export function getNaviUrl(lat: number, lng: number, name: string, app: NaviApp 
   return `https://map.kakao.com/link/to/${encoded},${lat},${lng}`;
 }
 
-export function getNaviFallbackUrl(lat: number, lng: number, name: string, app: NaviApp = "naver"): string {
+export function getNaviFallbackUrl(lat: number, lng: number, name: string): string {
   const encoded = encodeURIComponent(name);
-
-  if (app === "naver") {
-    return `https://map.naver.com/v5/directions/-/${lng},${lat},${encoded}/-/car`;
-  }
-
+  // 카카오맵 웹: 좌표 기반 도착지 정확 세팅
   return `https://map.kakao.com/link/to/${encoded},${lat},${lng}`;
 }
