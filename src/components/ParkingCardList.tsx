@@ -91,7 +91,7 @@ export function ParkingCardList() {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-3 px-4 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-3 px-4">
       {sorted.map((lot) => (
         <ParkingCard key={lot.id} lot={lot} />
       ))}
