@@ -21,10 +21,13 @@ export function ParkingCard({ lot }: Props) {
   const config = STATUS_CONFIG[lot.status];
 
   return (
-    <button
+    <div
+      role="button"
+      tabIndex={0}
       onClick={() => toggleCard(lot.id)}
+      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") toggleCard(lot.id); }}
       className={`w-full text-left rounded-xl bg-bg-card border border-border/50
-        active:bg-bg-card-hover transition-all overflow-hidden
+        active:bg-bg-card-hover transition-all overflow-hidden cursor-pointer
         ${isFull ? "opacity-40" : config.cardGlow}`}
     >
       <div className="flex">
@@ -65,7 +68,7 @@ export function ParkingCard({ lot }: Props) {
           </div>
         </div>
       </div>
-    </button>
+    </div>
   );
 }
 
