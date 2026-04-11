@@ -11,17 +11,30 @@ export function calculateStatus(available: number, total: number): ParkingStatus
 
 export const STATUS_CONFIG: Record<
   ParkingStatus,
-  { label: string; color: string; bgColor: string }
+  { label: string; barColor: string; badgeBg: string; badgeText: string }
 > = {
-  available: { label: "여유", color: "text-green-700", bgColor: "bg-green-100" },
-  normal: { label: "보통", color: "text-yellow-700", bgColor: "bg-yellow-100" },
-  congested: { label: "혼잡", color: "text-orange-700", bgColor: "bg-orange-100" },
-  full: { label: "만차", color: "text-red-700", bgColor: "bg-red-100" },
-};
-
-export const STATUS_RING_COLOR: Record<ParkingStatus, string> = {
-  available: "#22c55e",
-  normal: "#eab308",
-  congested: "#f97316",
-  full: "#ef4444",
+  available: {
+    label: "여유",
+    barColor: "bg-green-500",
+    badgeBg: "bg-green-500/15",
+    badgeText: "text-green-400",
+  },
+  normal: {
+    label: "보통",
+    barColor: "bg-amber-500",
+    badgeBg: "bg-amber-500/15",
+    badgeText: "text-amber-400",
+  },
+  congested: {
+    label: "혼잡",
+    barColor: "bg-orange-500",
+    badgeBg: "bg-orange-500/15",
+    badgeText: "text-orange-400",
+  },
+  full: {
+    label: "만차",
+    barColor: "bg-red-500",
+    badgeBg: "bg-red-500/15",
+    badgeText: "text-red-400",
+  },
 };

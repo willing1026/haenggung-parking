@@ -12,24 +12,19 @@ const OPTIONS: { value: SortBy; label: string }[] = [
 export function SortSelector() {
   const sortBy = useParkingStore((s) => s.sortBy);
   const setSortBy = useParkingStore((s) => s.setSortBy);
-  const userLocation = useParkingStore((s) => s.userLocation);
 
   return (
-    <div className="flex gap-2 px-4 py-2">
+    <div className="flex rounded-lg bg-bg-card p-1 mx-4">
       {OPTIONS.map((opt) => {
-        const disabled = opt.value === "distance" && !userLocation;
         const active = sortBy === opt.value;
         return (
           <button
             key={opt.value}
             onClick={() => setSortBy(opt.value)}
-            disabled={disabled}
-            className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+            className={`flex-1 py-1.5 text-xs font-medium rounded-md transition-all ${
               active
-                ? "bg-gray-900 text-white"
-                : disabled
-                  ? "bg-gray-100 text-gray-300"
-                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                ? "bg-border text-text-primary shadow-sm"
+                : "text-text-secondary"
             }`}
           >
             {opt.label}

@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+@theme inline {
+  --color-bg-primary: #0F1117;
+  --color-bg-card: #1A1D27;
+  --color-bg-card-hover: #242836;
+  --color-border: #2C3040;
+  --color-text-primary: #F1F3F5;
+  --color-text-secondary: #868E96;
+  --color-text-muted: #4A5060;
+}
