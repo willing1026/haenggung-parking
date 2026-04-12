@@ -35,8 +35,8 @@ function pickRecommendation(lots: ParkingLot[]): ParkingLot | null {
   let bestScore = -1;
 
   for (let i = 0; i < candidates.length; i++) {
-    const distScore = maxDist > 0 ? (1 - distances[i] / maxDist) * 70 : 70; // 가까울수록 높음
-    const availScore = maxAvailable > 0 ? (candidates[i].available / maxAvailable) * 30 : 0;
+    const distScore = maxDist > 0 ? (1 - distances[i] / maxDist) * 65 : 65; // 가까울수록 높음
+    const availScore = maxAvailable > 0 ? (candidates[i].available / maxAvailable) * 35 : 0;
     const score = distScore + availScore;
     if (score > bestScore) {
       bestScore = score;
