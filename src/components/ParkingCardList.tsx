@@ -22,17 +22,21 @@ function sortLots(
   sortBy: string,
   userLocation: { lat: number; lng: number } | null,
 ): ParkingLot[] {
-  const sorted = [...lots];
+  // 실시간 데이터가 있는 것과 정적 전용을 분리
+  const realtime = lots.filter((l) => !l.id.startsWith("static-"));
+  const staticOnly = lots.filter((l) => l.id.startsWith("static-"));
+
+  const sortedRealtime = [...realtime];
   switch (sortBy) {
     case "availability":
-      sorted.sort((a, b) => b.available - a.available);
+      sortedRealtime.sort((a, b) => b.available - a.available);
       break;
     case "name":
-      sorted.sort((a, b) => a.name.localeCompare(b.name, "ko"));
+      sortedRealtime.sort((a, b) => a.name.localeCompare(b.name, "ko"));
       break;
     case "distance":
       if (userLocation) {
-        sorted.sort((a, b) => {
+        sortedRealtime.sort((a, b) => {
           const da = a.lat != null && a.lng != null
             ? haversine(userLocation.lat, userLocation.lng, a.lat, a.lng) : Infinity;
           const db = b.lat != null && b.lng != null
@@ -42,7 +46,9 @@ function sortLots(
       }
       break;
   }
-  return sorted;
+  // 정적 주차장은 이름순으로 하단에 배치
+  staticOnly.sort((a, b) => a.name.localeCompare(b.name, "ko"));
+  return [...sortedRealtime, ...staticOnly];
 }
 
 export function ParkingCardList() {

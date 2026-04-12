@@ -17,7 +17,8 @@ export function ParkingCard({ lot }: Props) {
   const expandedCardId = useParkingStore((s) => s.expandedCardId);
   const toggleCard = useParkingStore((s) => s.toggleCard);
   const isExpanded = expandedCardId === lot.id;
-  const isFull = lot.status === "full";
+  const isStatic = lot.id.startsWith("static-");
+  const isFull = !isStatic && lot.status === "full";
   const config = STATUS_CONFIG[lot.status];
 
   return (
@@ -32,7 +33,7 @@ export function ParkingCard({ lot }: Props) {
     >
       <div className="flex">
         {/* 좌측 컬러 바 */}
-        <div className={`w-1 shrink-0 rounded-l-xl ${config.barColor}`} />
+        <div className={`w-1 shrink-0 rounded-l-xl ${isStatic ? "bg-text-muted" : config.barColor}`} />
 
         <div className="flex-1 px-4 py-3">
           {/* 이름 + 배지 */}
@@ -40,11 +41,21 @@ export function ParkingCard({ lot }: Props) {
             <h3 className="text-base font-semibold text-text-primary truncate pr-2">
               {lot.name}
             </h3>
-            <StatusBadge status={lot.status} />
+            {isStatic ? (
+              <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-text-muted/20 text-text-secondary">
+                정보만 제공
+              </span>
+            ) : (
+              <StatusBadge status={lot.status} />
+            )}
           </div>
 
-          {/* 점유 바 */}
-          <OccupancyBar available={lot.available} total={lot.total} status={lot.status} />
+          {/* 점유 바 또는 안내 문구 */}
+          {isStatic ? (
+            <p className="text-xs text-text-secondary">실시간 잔여 정보 없음</p>
+          ) : (
+            <OccupancyBar available={lot.available} total={lot.total} status={lot.status} />
+          )}
 
           {/* 확장 영역 */}
           <div className={`grid transition-all duration-300 ${isExpanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>

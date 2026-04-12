@@ -140,13 +140,87 @@ const HAENGGUNG_PARKING_INFO: Record<string, {
   },
 };
 
+// ── 정적 전용 주차장 (실시간 데이터 없음, 요금·주소만 제공) ──
+
+const STATIC_ONLY_LOTS: ParkingLot[] = [
+  {
+    id: "static-sinpung",
+    name: "신풍동 공영주차장",
+    total: 0, occupied: 0, available: 0,
+    status: "normal",
+    address: "경기도 수원시 팔달구 신풍로 51",
+    lat: 37.2795, lng: 127.0130,
+    feeBase: "최초 60분 무료",
+    feeAdditional: "초과 10분당 300원",
+    feeMaxDaily: "1일 최대 7,000원",
+    feeInfo: null, hours: null,
+    updatedAt: "",
+  },
+  {
+    id: "static-yeonmudae",
+    name: "연무대 공영주차장",
+    total: 122, occupied: 0, available: 0,
+    status: "normal",
+    address: "경기도 수원시 팔달구 매향동 3-17",
+    lat: 37.2878, lng: 127.0212,
+    feeBase: "최초 30분 900원",
+    feeAdditional: "10분당 400원",
+    feeMaxDaily: "1일 14,000원",
+    feeInfo: "122면 (일반 97, 대형 17, 장애인 6)", hours: null,
+    updatedAt: "",
+  },
+  {
+    id: "static-namchang",
+    name: "남창동 임시주차장",
+    total: 0, occupied: 0, available: 0,
+    status: "normal",
+    address: "경기도 수원시 팔달구 행궁로 18",
+    lat: 37.2808, lng: 127.0155,
+    feeBase: "최초 30분 900원",
+    feeAdditional: "10분당 400원",
+    feeMaxDaily: "1일 14,000원",
+    feeInfo: null, hours: null,
+    updatedAt: "",
+  },
+  {
+    id: "static-paldal-tower",
+    name: "팔달주차타워",
+    total: 0, occupied: 0, available: 0,
+    status: "normal",
+    address: "경기도 수원시 팔달구 수원천로 254",
+    lat: 37.2755, lng: 127.0170,
+    feeBase: "최초 30분 무료",
+    feeAdditional: "초과 10분당 200원",
+    feeMaxDaily: null,
+    feeInfo: "시장 이용 시 1시간 주차쿠폰 제공", hours: null,
+    updatedAt: "",
+  },
+  {
+    id: "static-art-museum",
+    name: "수원시립미술관 주차장",
+    total: 0, occupied: 0, available: 0,
+    status: "normal",
+    address: "경기도 수원시 팔달구 정조로 833",
+    lat: 37.2833, lng: 127.0168,
+    feeBase: "최초 30분 1,000원",
+    feeAdditional: "10분당 1,500원",
+    feeMaxDaily: "1일 30,000원",
+    feeInfo: "미술관 관람 시 2시간 무료", hours: null,
+    updatedAt: "",
+  },
+];
+
 const HAENGGUNG_PARKING_IDS = new Set(Object.keys(HAENGGUNG_PARKING_INFO));
 
 export function filterHaenggungArea(lots: ParkingLot[]): ParkingLot[] {
-  return lots
+  // 실시간 데이터가 있는 주차장
+  const realtime = lots
     .filter((lot) => HAENGGUNG_PARKING_IDS.has(lot.id))
     .map((lot) => {
       const info = HAENGGUNG_PARKING_INFO[lot.id];
       return info ? { ...lot, ...info } : lot;
     });
+
+  // 정적 전용 주차장 추가
+  return [...realtime, ...STATIC_ONLY_LOTS];
 }
