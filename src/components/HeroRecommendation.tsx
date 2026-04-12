@@ -5,11 +5,46 @@ import { STATUS_CONFIG } from "@/lib/status";
 import { NaviButton } from "./NaviButton";
 import type { ParkingLot } from "@/types/parking";
 
+// 화성행궁 좌표
+const HWASEONG = { lat: 37.2841, lng: 127.0159 };
+
+function haversineM(lat1: number, lng1: number, lat2: number, lng2: number): number {
+  const toRad = (d: number) => (d * Math.PI) / 180;
+  const R = 6371000;
+  const dLat = toRad(lat2 - lat1);
+  const dLng = toRad(lng2 - lng1);
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
 function pickRecommendation(lots: ParkingLot[]): ParkingLot | null {
-  const available = lots.filter((l) => l.available > 0);
-  if (available.length === 0) return null;
-  // 잔여석 가장 많은 주차장
-  return available.sort((a, b) => b.available - a.available)[0];
+  // 실시간 + 잔여 있는 것만
+  const candidates = lots.filter(
+    (l) => !l.id.startsWith("static-") && l.available > 0 && l.lat != null && l.lng != null,
+  );
+  if (candidates.length === 0) return null;
+
+  // 점수 = 거리 점수(0~50) + 잔여 점수(0~50)
+  const maxAvailable = Math.max(...candidates.map((l) => l.available));
+  const distances = candidates.map((l) => haversineM(HWASEONG.lat, HWASEONG.lng, l.lat!, l.lng!));
+  const maxDist = Math.max(...distances);
+
+  let bestIdx = 0;
+  let bestScore = -1;
+
+  for (let i = 0; i < candidates.length; i++) {
+    const distScore = maxDist > 0 ? (1 - distances[i] / maxDist) * 50 : 50; // 가까울수록 높음
+    const availScore = maxAvailable > 0 ? (candidates[i].available / maxAvailable) * 50 : 0;
+    const score = distScore + availScore;
+    if (score > bestScore) {
+      bestScore = score;
+      bestIdx = i;
+    }
+  }
+
+  return candidates[bestIdx];
 }
 
 export function HeroRecommendation() {
