@@ -5,10 +5,30 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 const GA_ID = "G-HTZ25MF02H";
+export const SITE_URL = "https://haenggung-parking.vercel.app";
 
 export const metadata: Metadata = {
-  title: "행궁동 주차 현황",
-  description: "수원시 행궁동 공용주차장 실시간 잔여 주차면수 대시보드",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "행궁동 지금",
+    template: "%s | 행궁동 지금",
+  },
+  description: "행궁동 가기 전에 여기 먼저. 실시간 주차 현황부터 오늘의 핫스팟까지 한눈에.",
+  keywords: ["행궁동", "행궁동 주차", "행궁동 주차장", "행리단길", "수원 행궁동", "행궁동 맛집", "행궁동 카페", "수원 여행"],
+  openGraph: {
+    title: "행궁동 지금",
+    description: "행궁동 가기 전에 여기 먼저. 실시간 주차 현황부터 오늘의 핫스팟까지 한눈에.",
+    url: SITE_URL,
+    siteName: "행궁동 지금",
+    locale: "ko_KR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "행궁동 지금",
+    description: "행궁동 가기 전에 여기 먼저.",
+  },
+  robots: { index: true, follow: true },
 };
 
 export const viewport: Viewport = {
