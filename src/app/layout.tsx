@@ -29,6 +29,9 @@ export const metadata: Metadata = {
     description: "행궁동 가기 전에 여기 먼저.",
   },
   robots: { index: true, follow: true },
+  verification: {
+    google: "DFAOUmwUIN2vK_hGqcLmxaHRk2Iz1NgeB8NcHJmZ2tA",
+  },
 };
 
 export const viewport: Viewport = {

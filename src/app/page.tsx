@@ -20,6 +20,8 @@ export default function Home() {
       <Header />
       <HeroRecommendation />
 
+      {/* <KakaoSubscribeBanner /> — 채널 전략 재검토 중, Seth 결정 후 활성화 */}
+
       {/* 섹션 헤더: 리스트 타이틀 + 인라인 정렬 */}
       <div className="flex items-center justify-between px-4 pt-2">
         <span className="text-sm text-text-secondary">
