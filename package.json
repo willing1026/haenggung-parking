@@ -12,7 +12,8 @@
     "intel:kakao": "npx tsx scripts/sns-monitor/kakao-map.ts",
     "intel:naver-map": "npx tsx scripts/sns-monitor/naver-map.ts",
     "intel:youtube": "npx tsx scripts/sns-monitor/youtube.ts",
-    "intel:instagram": "npx tsx scripts/sns-monitor/instagram.ts"
+    "intel:instagram": "npx tsx scripts/sns-monitor/instagram.ts",
+    "seo:ping": "npx tsx scripts/ping-sitemap.ts"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
